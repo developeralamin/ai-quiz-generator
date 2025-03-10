@@ -1,12 +1,36 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## AI Quiz Generator
+📌 Steps to Run the Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-  Step 1: Clone the Repository
+```bash
+git clone https://github.com/developeralamin/ai-quiz-generator
+cd ai-quiz-generator
+```
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Step 2: Install Dependencies
+```
+ npm install 
+```
+
+- Step 3: Start the Project
+```
+ npm run dev
+```
+
+📌 How the Project Works
+1️⃣ Enter Text: Type or paste any text into the input field.
+2️⃣ Generate Quiz: Click the "Generate Quiz" button to create a quiz based on the entered text.
+3️⃣ Select Answers: Choose answers from the multiple-choice options or True/False choices.
+4️⃣ Calculate Score: Click "Calculate Score" to see your results.
+5️⃣ View Correct Answers: The app displays correct answers along with your score.
+6️⃣ Refresh Quiz: Click "Refresh Quiz" to generate a new quiz and start over.
+
+
+
+
+
+
+
