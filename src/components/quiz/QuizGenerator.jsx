@@ -12,6 +12,9 @@ const QuizGenerator = () => {
     const [correctAnswers, setCorrectAnswers] = useState([]); // To store correct answers
     const [lastQuizIndex, setLastQuizIndex] = useState(null);
 
+
+    // const apiKey = process.env.REACT_APP_BASE_URL;
+
     const generateQuiz = async () => {
         if (!text.trim()) {
             setError("Please enter some text to generate a quiz.");
@@ -22,7 +25,7 @@ const QuizGenerator = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post("http://127.0.0.1:8000/api/generate-quiz", { text });
+            const response = await axios.post(`http://127.0.0.1:8000/api/generate-quiz`, { text });
             
             if (response.data) {
                 const quizData = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
