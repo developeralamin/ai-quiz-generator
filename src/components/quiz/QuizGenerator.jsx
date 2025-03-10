@@ -9,11 +9,9 @@ const QuizGenerator = () => {
     const [score, setScore] = useState(0);
     const [showAnswers, setShowAnswers] = useState(false);
     const [error, setError] = useState("");
-    const [correctAnswers, setCorrectAnswers] = useState([]); // To store correct answers
+    const [correctAnswers, setCorrectAnswers] = useState([]);
     const [lastQuizIndex, setLastQuizIndex] = useState(null);
-
-
-    // const apiKey = process.env.REACT_APP_BASE_URL;
+    const [quizGenerated, setQuizGenerated] = useState(false); // Track if quiz is generated
 
     const generateQuiz = async () => {
         if (!text.trim()) {
@@ -29,12 +27,13 @@ const QuizGenerator = () => {
             
             if (response.data) {
                 const quizData = typeof response.data === 'string' ? JSON.parse(response.data) : response.data;
-                setQuiz(prevQuiz => [...prevQuiz, quizData]);
-                setLastQuizIndex(quiz.length); // Set the index of the new quiz
+                setQuiz([quizData]); // Only store the latest quiz
+                setLastQuizIndex(0); 
                 setAnswers({});
                 setScore(0);
                 setShowAnswers(false);
-                setCorrectAnswers([]); // Reset correct answers when generating new quiz
+                setCorrectAnswers([]);
+                setQuizGenerated(true); // Enable Refresh button
             } else {
                 setError("No quiz generated. Please try again.");
             }
@@ -47,6 +46,7 @@ const QuizGenerator = () => {
     };
 
     const handleAnswerSelect = (quizIndex, questionIndex, selectedAnswer) => {
+        if (showAnswers) return;
         setAnswers(prev => ({
             ...prev,
             [`${quizIndex}-${questionIndex}`]: selectedAnswer
@@ -58,7 +58,7 @@ const QuizGenerator = () => {
 
         const lastQuiz = quiz[lastQuizIndex];
         let correctCount = 0;
-        const correctAnswersTemp = []; // Store the correct answers for each quiz
+        const correctAnswersTemp = [];
 
         lastQuiz.forEach((question, index) => {
             const answerKey = `${lastQuizIndex}-${index}`;
@@ -69,14 +69,12 @@ const QuizGenerator = () => {
             correctAnswersTemp.push({ question: question.question, correctAnswer: question.answer });
         });
 
-        // Set correct answers and the score
         const newScore = (correctCount / lastQuiz.length) * 100;
         setScore(newScore);
         setCorrectAnswers(correctAnswersTemp); 
         setShowAnswers(true);
     };
 
-    // Reset all the quiz data
     const handleRefresh = () => {
         setText("");
         setQuiz([]);
@@ -86,6 +84,7 @@ const QuizGenerator = () => {
         setError("");
         setCorrectAnswers([]);
         setLastQuizIndex(null);
+        setQuizGenerated(false); 
     };
 
     return (
@@ -110,7 +109,9 @@ const QuizGenerator = () => {
                         <h3>Quiz {quizIndex + 1}</h3>
                         {quizSet.map((question, questionIndex) => (
                             <div key={questionIndex} className="question-card">
-                                <p className="question">{question.question}</p>
+                                <p className="question">
+                                    {question.question_no}. {question.question} {/* Show question number */}
+                                </p>
                                 {question.options ? (
                                     <div className="options-container">
                                         {question.options.map((option, optionIndex) => (
@@ -119,7 +120,7 @@ const QuizGenerator = () => {
                                                 onClick={() => handleAnswerSelect(quizIndex, questionIndex, option.split(')')[0])}
                                                 className={`option-btn ${
                                                     answers[`${quizIndex}-${questionIndex}`] === option.split(')')[0] 
-                                                        ? 'selected correct'  // Apply green color class when selected
+                                                        ? 'selected correct'  
                                                         : ''
                                                 }`}
                                             >
@@ -132,20 +133,18 @@ const QuizGenerator = () => {
                                         <button
                                             onClick={() => handleAnswerSelect(quizIndex, questionIndex, 'True')}
                                             className={`option-btn ${
-                                                answers[`${quizIndex}-${questionIndex}`] === 'True'
-                                                    ? 'selected correct'
-                                                    : ''
+                                                answers[`${quizIndex}-${questionIndex}`] === 'True' ? 'selected correct' : ''
                                             }`}
+                                            disabled={showAnswers}
                                         >
                                             True
                                         </button>
                                         <button
                                             onClick={() => handleAnswerSelect(quizIndex, questionIndex, 'False')}
                                             className={`option-btn ${
-                                                answers[`${quizIndex}-${questionIndex}`] === 'False'
-                                                    ? 'selected correct'
-                                                    : ''
+                                                answers[`${quizIndex}-${questionIndex}`] === 'False' ? 'selected correct' : ''
                                             }`}
+                                            disabled={showAnswers}
                                         >
                                             False
                                         </button>
@@ -186,10 +185,24 @@ const QuizGenerator = () => {
                 </div>
             )}
 
-            {/* Refresh Button */}
-            <button onClick={handleRefresh} className="refresh-btn">
-                Refresh Quiz
-            </button>
+        <button 
+            onClick={handleRefresh} 
+            className="refresh-btn" 
+            disabled={!quizGenerated}
+            style={{
+                backgroundColor: quizGenerated ? "#f44336" : "white", 
+                color: quizGenerated ? "white" : "black", 
+                cursor: quizGenerated ? "pointer" : "not-allowed",
+                border: "1px solid #ccc",
+                padding: "10px 15px",
+                fontSize: "16px",
+                borderRadius: "5px",
+                transition: "background-color 0.3s ease",
+            }}
+        >
+            Refresh Quiz
+        </button>
+
         </div>
     );
 };
