@@ -7,7 +7,7 @@
 This project is built using the following technologies:
 
 - **Frontend**: React.js
-- **Backend**: (If applicable) Laravel API
+- **Backend**:  Laravel API
 - **Node.js**: v20.10.0 for managing dependencies and running the development server
 
 ## 📌 Prerequisites
