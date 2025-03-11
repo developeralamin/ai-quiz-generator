@@ -1,6 +1,12 @@
 
 
 ## AI Quiz Generator
+## 📌 Prerequisites
+
+### Required Node.js Version
+
+This project requires **Node.js v20.10.0**.
+
 📌 Steps to Run the Project
 
 -  Step 1: Clone the Repository
@@ -31,7 +37,8 @@ cd ai-quiz-generator
 6️⃣ Refresh Quiz: Click "Refresh Quiz" to generate a new quiz and start over.
 ```
 
-
+📸 Screenshots
+App UI:
 
 
 ![screencapture-localhost-5173-2025-03-11-01_19_29](https://github.com/user-attachments/assets/f47a42ac-c70e-4358-a5ad-f5ed0d3d208b)
