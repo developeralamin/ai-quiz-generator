@@ -1,10 +1,18 @@
 
 
 ## AI Quiz Generator
+
+## 📌 Technology Stack
+
+This project is built using the following technologies:
+
+- **Frontend**: React.js
+- **Backend**: (If applicable) Laravel API
+- **Node.js**: v20.10.0 for managing dependencies and running the development server
+
 ## 📌 Prerequisites
 
 ### Required Node.js Version
-
 This project requires **Node.js v20.10.0**.
 
 📌 Steps to Run the Project
